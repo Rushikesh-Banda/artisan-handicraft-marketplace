@@ -1,8 +1,8 @@
 import { io } from 'socket.io-client';
 
 // In production, this should be the deployed backend URL
-const SOCKET_URL = 'http://localhost:5000';
-
+const SOCKET_URL =
+  "https://artisan-handicraft-marketplace.onrender.com";
 let socket;
 
 export const initiateSocketConnection = () => {
