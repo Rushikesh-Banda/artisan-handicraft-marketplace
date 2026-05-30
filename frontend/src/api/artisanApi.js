@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = '/api/artisans';
+const API_URL = 'https://artisan-handicraft-marketplace.onrender.com/api/artisans';
 
 const getAuthHeaders = () => {
   const user = JSON.parse(localStorage.getItem('user'));

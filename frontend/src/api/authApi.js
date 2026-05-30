@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API =
-  "http://localhost:5002/api/auth";
+  "https://artisan-handicraft-marketplace.onrender.com/api/auth";
 
 
 // ==============================

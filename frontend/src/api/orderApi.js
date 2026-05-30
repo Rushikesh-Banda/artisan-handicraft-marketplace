@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL =
-  "http://localhost:5002/api/orders";
+  "https://artisan-handicraft-marketplace.onrender.com/api/orders";
 
 const getAuthHeaders = () => {
 
