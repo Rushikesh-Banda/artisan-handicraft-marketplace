@@ -160,13 +160,20 @@ exports.addToCart = async (req, res) => {
 
     } else {
 
-      cart.items.push({
+  cart.items.push({
 
-        product: productId,
+    product: productId,
 
-        quantity,
-      });
-    }
+    quantity: Number(quantity),
+
+    price: product.price,
+
+    title: product.title,
+
+    image: product.image,
+  });
+}
+  
 
 
     await cart.save();
