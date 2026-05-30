@@ -1,0 +1,378 @@
+@baseUrl = http://localhost:5002/api
+
+##################################################
+### 🩺 HEALTH CHECK
+##################################################
+
+GET http://localhost:5002/
+
+
+
+##################################################
+### 🔐 AUTH APIs
+##################################################
+
+### Register User
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "Rushikesh",
+  "email": "rushikesh@gmail.com",
+  "password": "123456"
+}
+
+
+
+### Login User
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "rushikesh@gmail.com",
+  "password": "123456"
+}
+
+
+
+### Logout User
+POST {{baseUrl}}/auth/logout
+
+
+
+##################################################
+### 🔑 TOKEN
+##################################################
+
+@token = PASTE_YOUR_TOKEN_HERE
+
+
+
+##################################################
+### 👤 USER APIs
+##################################################
+
+### Get My Profile
+GET {{baseUrl}}/users/profile
+Authorization: Bearer {{token}}
+
+
+
+### Update My Profile
+PUT {{baseUrl}}/users/profile
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Rushikesh Updated"
+}
+
+
+
+### Get All Users
+GET {{baseUrl}}/users
+Authorization: Bearer {{token}}
+
+
+
+##################################################
+### 🎨 ARTISAN APIs
+##################################################
+
+### Register Artisan
+POST {{baseUrl}}/artisans
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "bio": "Handmade Artist",
+  "storeName": "Rushi Crafts",
+  "portfolio": [
+    "https://images.unsplash.com/photo-1517841905240-472988babdf9"
+  ]
+}
+
+
+
+### Get All Artisans
+GET {{baseUrl}}/artisans
+
+
+
+### Get Artisan By ID
+GET {{baseUrl}}/artisans/ARTISAN_ID
+
+
+
+### Get My Artisan Profile
+GET {{baseUrl}}/artisans/profile
+Authorization: Bearer {{token}}
+
+
+
+### Update Artisan Profile
+PUT {{baseUrl}}/artisans/profile
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "bio": "Updated artisan bio"
+}
+
+
+
+##################################################
+### 🗂 CATEGORY APIs
+##################################################
+
+### Get Categories
+GET {{baseUrl}}/categories
+
+
+
+### Create Category
+POST {{baseUrl}}/categories
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Wood Crafts",
+  "description": "Handmade wooden products"
+}
+
+
+
+### Update Category
+PUT {{baseUrl}}/categories/CATEGORY_ID
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Updated Category"
+}
+
+
+
+### Delete Category
+DELETE {{baseUrl}}/categories/CATEGORY_ID
+Authorization: Bearer {{token}}
+
+
+
+##################################################
+### 📦 PRODUCT APIs
+##################################################
+
+### Get All Products
+GET {{baseUrl}}/products
+
+
+
+### Search Products
+GET {{baseUrl}}/products?keyword=wood
+
+
+
+### Get Product By ID
+GET {{baseUrl}}/products/PRODUCT_ID
+
+
+
+### Create Product
+POST {{baseUrl}}/products
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Wooden Craft",
+  "description": "Beautiful handmade wooden craft",
+  "price": 120,
+  "category": "CATEGORY_ID",
+  "countInStock": 10,
+  "image": "https://images.unsplash.com/photo-1503602642458-232111445657"
+}
+
+
+
+### Update Product
+PUT {{baseUrl}}/products/PRODUCT_ID
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Updated Wooden Craft",
+  "price": 150
+}
+
+
+
+### Delete Product
+DELETE {{baseUrl}}/products/PRODUCT_ID
+Authorization: Bearer {{token}}
+
+
+
+##################################################
+### 🛒 CART APIs
+##################################################
+
+### Get Cart
+GET {{baseUrl}}/cart
+Authorization: Bearer {{token}}
+
+
+
+### Add To Cart
+POST {{baseUrl}}/cart
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "productId": "PRODUCT_ID",
+  "quantity": 2
+}
+
+
+
+### Remove From Cart
+DELETE {{baseUrl}}/cart/PRODUCT_ID
+Authorization: Bearer {{token}}
+
+
+
+##################################################
+### ❤️ WISHLIST APIs
+##################################################
+
+### Get Wishlist
+GET {{baseUrl}}/wishlist
+Authorization: Bearer {{token}}
+
+
+
+### Add To Wishlist
+POST {{baseUrl}}/wishlist
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "productId": "PRODUCT_ID"
+}
+
+
+
+### Remove From Wishlist
+DELETE {{baseUrl}}/wishlist/PRODUCT_ID
+Authorization: Bearer {{token}}
+
+
+
+##################################################
+### ⭐ REVIEW APIs
+##################################################
+
+### Add Review
+POST {{baseUrl}}/reviews
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "productId": "PRODUCT_ID",
+  "rating": 5,
+  "comment": "Amazing handmade product"
+}
+
+
+
+### Get Product Reviews
+GET {{baseUrl}}/reviews/PRODUCT_ID
+
+
+
+##################################################
+### 📦 ORDER APIs
+##################################################
+
+### Create Order
+POST {{baseUrl}}/orders
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "orderItems": [
+    {
+      "name": "Wooden Craft",
+      "qty": 2,
+      "image": "https://images.unsplash.com/photo-1503602642458-232111445657",
+      "price": 100,
+      "product": "PRODUCT_ID"
+    }
+  ],
+
+  "shippingAddress": {
+    "address": "Street 1",
+    "city": "Hyderabad",
+    "postalCode": "500001",
+    "country": "India"
+  },
+
+  "paymentMethod": "Stripe",
+
+  "itemsPrice": 200,
+
+  "taxPrice": 30,
+
+  "shippingPrice": 10,
+
+  "totalPrice": 240
+}
+
+
+
+### Get My Orders
+GET {{baseUrl}}/orders/mine
+Authorization: Bearer {{token}}
+
+
+
+### Get Order By ID
+GET {{baseUrl}}/orders/ORDER_ID
+Authorization: Bearer {{token}}
+
+
+
+### Update Order To Paid
+PUT {{baseUrl}}/orders/ORDER_ID/pay
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": "PAYMENT_ID",
+  "status": "COMPLETED",
+  "update_time": "2026-05-25",
+  "payer": {
+    "email_address": "customer@gmail.com"
+  }
+}
+
+
+
+### Update Order To Delivered
+PUT {{baseUrl}}/orders/ORDER_ID/deliver
+Authorization: Bearer {{token}}
+
+
+
+##################################################
+### 🔔 NOTIFICATION APIs
+##################################################
+
+### Get Notifications
+GET {{baseUrl}}/notifications
+Authorization: Bearer {{token}}
+
+
+
+### Mark Notification As Read
+PUT {{baseUrl}}/notifications/NOTIFICATION_ID
+Authorization: Bearer {{token}}
