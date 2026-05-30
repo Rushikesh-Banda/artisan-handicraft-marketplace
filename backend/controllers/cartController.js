@@ -101,6 +101,21 @@ exports.addToCart = async (req, res) => {
     }
 
 
+    if (
+      !productId ||
+      !quantity
+    ) {
+
+      return res.status(400).json({
+
+        success: false,
+
+        message:
+          "Product ID and quantity are required",
+      });
+    }
+
+
     // Check product
     const product =
       await Product.findById(
@@ -213,7 +228,11 @@ exports.addToCart = async (req, res) => {
       cart: updatedCart,
     });
 
-  } catch (error) {
+    } catch (error) {
+
+    console.error("========== ADD TO CART ERROR ==========");
+    console.error(error);
+    console.error(error.stack);
 
     res.status(500).json({
 
@@ -226,7 +245,6 @@ exports.addToCart = async (req, res) => {
     });
   }
 };
-
 
 
 // ====================================
