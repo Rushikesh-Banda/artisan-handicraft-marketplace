@@ -3,14 +3,11 @@ const path = require('path');
 const dotenv = require('dotenv');
 const Product = require('../models/Product');
 
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGO_URI);
     console.log('MongoDB connected for seeding');
   } catch (err) {
     console.error('MongoDB connection error:', err);
@@ -25,13 +22,13 @@ const seedProducts = async () => {
 
     const sampleProducts = [
       {
-        user: mongoose.Types.ObjectId(),
+        user: new mongoose.Types.ObjectId(),
         title: 'Handcrafted Ceramic Vase',
         slug: 'handcrafted-ceramic-vase',
         description: 'A beautifully handcrafted ceramic vase, perfect for home decor.',
         price: 45.0,
         discountPrice: 0,
-        category: mongoose.Types.ObjectId(),
+        category: new mongoose.Types.ObjectId(),
         countInStock: 10,
         image: 'https://via.placeholder.com/400x300?text=Ceramic+Vase',
         images: [],
@@ -41,13 +38,13 @@ const seedProducts = async () => {
         isActive: true,
       },
       {
-        user: mongoose.Types.ObjectId(),
+        user: new mongoose.Types.ObjectId(),
         title: 'Woven Tapestry',
         slug: 'woven-tapestry',
         description: 'Detailed woven tapestry made from natural fibers.',
         price: 120.0,
         discountPrice: 0,
-        category: mongoose.Types.ObjectId(),
+        category: new mongoose.Types.ObjectId(),
         countInStock: 5,
         image: 'https://via.placeholder.com/400x300?text=Woven+Tapestry',
         images: [],
@@ -57,13 +54,13 @@ const seedProducts = async () => {
         isActive: true,
       },
       {
-        user: mongoose.Types.ObjectId(),
+        user: new mongoose.Types.ObjectId(),
         title: 'Silver Necklace',
         slug: 'silver-necklace',
         description: 'Elegant silver necklace with intricate design.',
         price: 85.0,
         discountPrice: 0,
-        category: mongoose.Types.ObjectId(),
+        category: new mongoose.Types.ObjectId(),
         countInStock: 8,
         image: 'https://via.placeholder.com/400x300?text=Silver+Necklace',
         images: [],
