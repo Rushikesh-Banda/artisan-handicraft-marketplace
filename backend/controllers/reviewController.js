@@ -9,6 +9,13 @@ exports.addReview = async (req, res) => {
   try {
     const { productId, rating, comment } = req.body;
 
+    if (!comment || !comment.trim()) {
+  return res.status(400).json({
+    success: false,
+    message: "Review cannot be empty",
+  });
+}
+
     // Validate fields
     if (!productId || !rating || !comment) {
       return res.status(400).json({

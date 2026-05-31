@@ -17,6 +17,7 @@ import {
   addReview,
   addReply,
   deleteReview,
+  deleteReply,
 } from "../api/productApi";
 
 import {
@@ -692,27 +693,40 @@ const [showReply, setShowReply] =
         {reply.comment}
       </p>
 
-      {String(reply.user) === String(user?._id) && (
 
-        <button
-          style={{
-            background: "red",
-            color: "white",
-            border: "none",
-            padding: "6px 10px",
-            borderRadius: "6px",
-            cursor: "pointer",
-            marginTop: "8px",
-          }}
+     {String(reply.user) === String(user?._id) && (
 
-          onClick={() => {
-            // delete reply here
-          }}
-        >
-          Delete Reply
-        </button>
+  <button
+    style={{
+      background: "red",
+      color: "white",
+      border: "none",
+      padding: "6px 10px",
+      borderRadius: "6px",
+      cursor: "pointer",
+      marginTop: "8px",
+    }}
 
-      )}
+    onClick={async () => {
+
+      await deleteReply(
+        product._id,
+        review._id,
+        reply._id
+      );
+
+      const data =
+        await getProductById(id);
+
+      setProduct(
+        data.product
+      );
+    }}
+  >
+    Delete Reply
+  </button>
+
+)}
 
     </div>
 

@@ -640,6 +640,13 @@ exports.addReply = async (req, res) => {
 
     const { comment } = req.body;
 
+    if (!comment || !comment.trim()) {
+  return res.status(400).json({
+    success: false,
+    message: "Reply cannot be empty",
+  });
+}
+
     const product =
       await Product.findById(
         req.params.productId
@@ -675,6 +682,75 @@ exports.addReply = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Reply added",
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
+exports.deleteReply = async (req, res) => {
+
+  try {
+
+    const product =
+      await Product.findById(
+        req.params.productId
+      );
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    const review =
+      product.reviews.id(
+        req.params.reviewId
+      );
+
+    if (!review) {
+      return res.status(404).json({
+        success: false,
+        message: "Review not found",
+      });
+    }
+
+    const reply =
+      review.replies.id(
+        req.params.replyId
+      );
+
+    if (!reply) {
+      return res.status(404).json({
+        success: false,
+        message: "Reply not found",
+      });
+    }
+
+    if (
+      reply.user.toString() !==
+      req.user._id.toString() &&
+      req.user.role !== "admin"
+    ) {
+      return res.status(403).json({
+        success: false,
+        message: "Not authorized",
+      });
+    }
+
+    reply.deleteOne();
+
+    await product.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Reply deleted successfully",
     });
 
   } catch (error) {

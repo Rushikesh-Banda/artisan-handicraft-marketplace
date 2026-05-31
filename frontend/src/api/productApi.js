@@ -207,3 +207,25 @@ export const deleteReview =
 
     return response.data;
 };
+
+// =========================================
+// DELETE REPLY
+// =========================================
+
+export const deleteReply =
+  async (
+    productId,
+    reviewId,
+    replyId
+  ) => {
+
+    const response =
+      await axios.delete(
+
+        `${API}/${productId}/reviews/${reviewId}/replies/${replyId}`,
+
+        getConfig()
+      );
+
+    return response.data;
+};

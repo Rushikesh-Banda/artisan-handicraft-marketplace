@@ -24,6 +24,8 @@ const {
 
    addReply,
 
+    deleteReply,
+
 } = require("../controllers/productController");
 
 
@@ -87,6 +89,12 @@ router.post(
   "/:productId/reviews/:reviewId/reply",
   protect,
   addReply
+);
+
+router.delete(
+  "/:productId/reviews/:reviewId/replies/:replyId",
+  protect,
+  deleteReply
 );
 
 // =========================================
