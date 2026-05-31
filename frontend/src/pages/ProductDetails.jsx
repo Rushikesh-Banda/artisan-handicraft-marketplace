@@ -112,6 +112,11 @@ const [showReply, setShowReply] =
       return;
     }
 
+    if (!reviewText.trim()) {
+  alert("Review cannot be empty");
+  return;
+}
+
     try {
 
       await addReview(
@@ -623,28 +628,30 @@ const [showReply, setShowReply] =
           className="btn btn-primary"
           onClick={async () => {
 
-            await addReply(
-              product._id,
-              review._id,
-              replyText[
-                review._id
-              ]
-            );
+  if (
+    !replyText[review._id] ||
+    !replyText[review._id].trim()
+  ) {
+    alert("Reply cannot be empty");
+    return;
+  }
 
-            const data =
-              await getProductById(
-                id
-              );
+  await addReply(
+    product._id,
+    review._id,
+    replyText[review._id]
+  );
 
-            setProduct(
-              data.product
-            );
+  const data =
+    await getProductById(id);
 
-            setReplyText({
-              ...replyText,
-              [review._id]: "",
-            });
-          }}
+  setProduct(data.product);
+
+  setReplyText({
+    ...replyText,
+    [review._id]: "",
+  });
+}}
         >
           Submit Reply
         </button>
