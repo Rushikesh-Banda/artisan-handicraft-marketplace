@@ -671,32 +671,53 @@ const [showReply, setShowReply] =
       >
 
         {review.replies.map(
-          (reply) => (
+  (reply) => (
 
-            <div
-              key={reply._id}
-              style={{
-                padding: "10px",
-                marginBottom:
-                  "10px",
-                background:
-                  "rgba(255,255,255,0.05)",
-                borderRadius:
-                  "8px",
-              }}
-            >
-              <strong>
-                {reply.name}
-              </strong>
+    <div
+      key={reply._id}
+      style={{
+        padding: "10px",
+        marginBottom: "10px",
+        background:
+          "rgba(255,255,255,0.05)",
+        borderRadius: "8px",
+      }}
+    >
 
-              <p>
-                {reply.comment}
-              </p>
+      <strong>
+        {reply.name}
+      </strong>
 
-            </div>
+      <p>
+        {reply.comment}
+      </p>
 
-          )
-        )}
+      {String(reply.user) === String(user?._id) && (
+
+        <button
+          style={{
+            background: "red",
+            color: "white",
+            border: "none",
+            padding: "6px 10px",
+            borderRadius: "6px",
+            cursor: "pointer",
+            marginTop: "8px",
+          }}
+
+          onClick={() => {
+            // delete reply here
+          }}
+        >
+          Delete Reply
+        </button>
+
+      )}
+
+    </div>
+
+  )
+)}
 
       </div>
 
